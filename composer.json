@@ -1,0 +1,16 @@
+{
+    "name": "beedelivery/laravel-bs2",
+    "description": "Package for integration with bs2.",
+    "type": "library",
+    "require": {
+        "php": "^7.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bee Delivery",
+            "email": "suporte@beedelivery.com.br"
+        }
+    ],
+    "minimum-stability": "dev"
+}
