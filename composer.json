@@ -1,6 +1,7 @@
 {
     "name": "beedelivery/laravel-bs2",
     "description": "Package for integration with bs2.",
+    "keywords": ["bs2", "laravel", "bank"],
     "type": "library",
     "require": {
         "php": "^7.3"
@@ -12,5 +13,10 @@
             "email": "suporte@beedelivery.com.br"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "BeeDelivery\\Bs2\\": "src/"
+        }
+    }
 }
