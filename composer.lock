@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3380d2287a676dd8110483e9b1575699",
+    "content-hash": "b0d86fe3a3afe0c2288f9467efdae73c",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -235,16 +235,16 @@
         },
         {
             "name": "illuminate/database",
-            "version": "8.x-dev",
+            "version": "v8.47.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "63869462fafaa12fd8bb7cfef3d13d205338aabf"
+                "reference": "2250ab2a23bf6865467e4ace187f0ff5da318777"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/63869462fafaa12fd8bb7cfef3d13d205338aabf",
-                "reference": "63869462fafaa12fd8bb7cfef3d13d205338aabf",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/2250ab2a23bf6865467e4ace187f0ff5da318777",
+                "reference": "2250ab2a23bf6865467e4ace187f0ff5da318777",
                 "shasum": ""
             },
             "require": {
@@ -295,7 +295,7 @@
                 "orm",
                 "sql"
             ],
-            "time": "2021-06-18T13:48:04+00:00"
+            "time": "2021-06-14T14:50:36+00:00"
         },
         {
             "name": "illuminate/macroable",
@@ -341,16 +341,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "8.x-dev",
+            "version": "v8.47.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "6d925ec70e060a5a16949c79216389c66746a07f"
+                "reference": "a8f90b73ccfd4b37aceafc2e17bcca9ed96cb4e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/6d925ec70e060a5a16949c79216389c66746a07f",
-                "reference": "6d925ec70e060a5a16949c79216389c66746a07f",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/a8f90b73ccfd4b37aceafc2e17bcca9ed96cb4e4",
+                "reference": "a8f90b73ccfd4b37aceafc2e17bcca9ed96cb4e4",
                 "shasum": ""
             },
             "require": {
@@ -401,7 +401,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2021-06-17T16:03:38+00:00"
+            "time": "2021-06-10T13:13:44+00:00"
         },
         {
             "name": "nesbot/carbon",
