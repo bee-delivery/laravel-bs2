@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0d86fe3a3afe0c2288f9467efdae73c",
+    "content-hash": "2b6a1b0c85efcbe86d060ce643327684",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -402,6 +402,59 @@
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
             "time": "2021-06-10T13:13:44+00:00"
+        },
+        {
+            "name": "laravel/helpers",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/helpers.git",
+                "reference": "1c3c128fa96bad2bc338eab1823fe7372e0c5328"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/helpers/zipball/1c3c128fa96bad2bc338eab1823fe7372e0c5328",
+                "reference": "1c3c128fa96bad2bc338eab1823fe7372e0c5328",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.8.0|^6.0|^7.0|^8.0",
+                "php": "^7.1.3|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Dries Vints",
+                    "email": "dries@laravel.com"
+                }
+            ],
+            "description": "Provides backwards compatibility for helpers in the latest Laravel release.",
+            "keywords": [
+                "helpers",
+                "laravel"
+            ],
+            "time": "2021-03-19T15:09:28+00:00"
         },
         {
             "name": "nesbot/carbon",

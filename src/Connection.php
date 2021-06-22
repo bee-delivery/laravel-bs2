@@ -3,7 +3,6 @@
 namespace BeeDelivery\Bs2;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class Connection
@@ -91,51 +90,45 @@ class Connection
         }
     }
 
-    /**
-     * Pega o token de acesso no banco de dados.
-     *
-     * @return void|json
-     */
     public function getAccessToken()
     {
-        $token = DB::table('bs2_oauth_access_tokens')
-            ->select('access_token', 'expires_in', 'refresh_token', 'created_at', 'updated_at')
-            ->whereNull('deleted_at')
-            ->orderBy('id', 'desc')
-            ->first();
+        $token = session('token');
 
         if ($token) {
-            $diffInSeconds = Carbon::parse($token->updated_at)->diffInSeconds(now());
+            $diffInSeconds = Carbon::parse($token['updated_at'])->diffInSeconds(now());
 
             if ($diffInSeconds <= 240) {
-                $this->accessToken = $token->access_token;
+                $this->accessToken = $token['accessToken'];
+                return;
             }
 
             if ($diffInSeconds <= 540) {
                 $params = [
                     'grant_type' => 'refresh_token',
                     'scope' => 'apibanking',
-                    'refresh_token' => $token->refresh_token
+                    'refresh_token' => $token['refreshToken']
                 ];
 
                 $response = $this->auth($params);
 
                 if ($response['code'] == 200) {
-                    $access_token = $response['response']['access_token'];
+                    $accessToken = $response['response']['access_token'];
 
-                    $token->access_token = $access_token;
-                    $token->token_type = $response['response']['token_type'];
-                    $token->expires_in = $response['response']['expires_in'];
-                    $token->refresh_token = $response['response']['refresh_token'];
-                    $token->scope = $response['response']['scope'];
+                    $token['access_token'] = $accessToken;
+                    $token['token_type'] = $response['response']['token_type'];
+                    $token['expires_in'] = $response['response']['expires_in'];
+                    $token['refresh_token'] = $response['response']['refresh_token'];
+                    $token['scope'] = $response['response']['scope'];
+                    $token['created_at'] => now();
+                    $token['updated_at'] => now();
 
-                    $token->save();
+                    session('token') = $token;
 
-                    $this->accessToken = $access_token;
+                    $this->accessToken = $accessToken;
+
+                    return;
                 }
             }
-
-            $token->delete();
         }
 
         $params = [
@@ -148,19 +141,21 @@ class Connection
         $response = $this->auth($params);
 
         if ($response['code'] == 200) {
-            $access_token = $response['response']['access_token'];
+            $accessToken = $response['response']['access_token'];
 
-            DB::table('bs2_oauth_access_tokens')->insert([
-                'access_token' => $access_token;
-                'token_type' => $response['response']['token_type'];
-                'expires_in' => $response['response']['expires_in'];
-                'refresh_token' => $response['response']['refresh_token'];
-                'scope' => $response['response']['scope'];
-                'created_at' => now();
-                'updated_at' => now();
-            ]);
+            $token['access_token'] = $accessToken;
+            $token['token_type'] = $response['response']['token_type'];
+            $token['expires_in'] = $response['response']['expires_in'];
+            $token['refresh_token'] = $response['response']['refresh_token'];
+            $token['scope'] = $response['response']['scope'];
+            $token['created_at'] => now();
+            $token['updated_at'] => now();
 
-            $this->accessToken = $access_token;
+            session('token') = $token;
+
+            $this->accessToken = $accessToken;
+
+            return;
         }
 
         return $response;
