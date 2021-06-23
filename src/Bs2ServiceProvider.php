@@ -15,8 +15,6 @@ class Bs2ServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/config/bs2.php', 'bs2');
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-
         // Register the service the package provides.
         $this->app->singleton('bs2', function ($app) {
             return new Bs2;

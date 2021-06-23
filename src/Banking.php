@@ -1,9 +1,9 @@
 <?php
 
+namespace BeeDelivery\Bs2;
+
 class Banking
 {
-    use Helpers;
-
     protected $http;
 
     public function __construct()

@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Http;
 
 class Connection
 {
-    use Helpers;
-
     protected $baseUrl;
     protected $apiKey;
     protected $apiSecret;
@@ -119,10 +117,10 @@ class Connection
                     $token['expires_in'] = $response['response']['expires_in'];
                     $token['refresh_token'] = $response['response']['refresh_token'];
                     $token['scope'] = $response['response']['scope'];
-                    $token['created_at'] => now();
-                    $token['updated_at'] => now();
+                    $token['created_at'] = now();
+                    $token['updated_at'] = now();
 
-                    session('token') = $token;
+                    session(['token' => $token]);
 
                     $this->accessToken = $accessToken;
 
@@ -148,10 +146,10 @@ class Connection
             $token['expires_in'] = $response['response']['expires_in'];
             $token['refresh_token'] = $response['response']['refresh_token'];
             $token['scope'] = $response['response']['scope'];
-            $token['created_at'] => now();
-            $token['updated_at'] => now();
+            $token['created_at'] = now();
+            $token['updated_at'] = now();
 
-            session('token') = $token;
+            session(['token' => $token]);
 
             $this->accessToken = $accessToken;
 
