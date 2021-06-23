@@ -10,4 +10,11 @@ class Banking
     {
         $this->http = new Connection();
     }
+
+    public function getSaldo()
+    {
+        $saldo = $this->http->get('/pj/forintegration/banking/v1/contascorrentes/principal/saldo');
+
+        return $saldo;
+    }
 }

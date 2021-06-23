@@ -25,7 +25,7 @@ class Connection
         $this->getAccessToken();
     }
 
-    public function get($url, $params)
+    public function get($url, $params = null)
     {
         try {
             $response = Http::withHeaders([
@@ -46,7 +46,7 @@ class Connection
         }
     }
 
-    public function post($url, $params)
+    public function post($url, $params = null)
     {
         try {
             $response = Http::withHeaders([
@@ -103,7 +103,7 @@ class Connection
             if ($diffInSeconds <= 540) {
                 $params = [
                     'grant_type' => 'refresh_token',
-                    'scope' => 'apibanking',
+                    'scope' => 'forintegration',
                     'refresh_token' => $token['refreshToken']
                 ];
 
@@ -131,7 +131,7 @@ class Connection
 
         $params = [
             'grant_type' => 'password',
-            'scope' => 'apibanking',
+            'scope' => 'forintegration',
             'username' => $this->username,
             'password' => $this->password
         ];
