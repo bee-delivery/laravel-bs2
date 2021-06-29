@@ -36,7 +36,7 @@ class Connection
 
             return [
                 'code' => $response->getStatusCode(),
-                'response' => json_decode($response->getBody()->getContents(), true)
+                'response' => json_decode($response->getBody(), true)
             ];
         } catch (\Exception $e){
             return [
@@ -57,7 +57,7 @@ class Connection
 
             return [
                 'code' => $response->getStatusCode(),
-                'response' => json_decode($response->getBody()->getContents(), true)
+                'response' => json_decode($response->getBody(), true)
             ];
         } catch (\Exception $e){
             return [
@@ -71,14 +71,16 @@ class Connection
     {
         try {
             $response = Http::withHeaders([
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/x-www-form-urlencoded'
             ])
+            ->asForm()
             ->withBasicAuth($this->apiKey, $this->apiSecret)
             ->post($this->baseUrl . '/auth/oauth/v2/token', $params);
 
             return [
                 'code' => $response->getStatusCode(),
-                'response' => json_decode($response->getBody()->getContents(), true)
+                'response' => json_decode($response->getBody(), true)
             ];
         } catch (\Exception $e){
             return [
@@ -96,7 +98,8 @@ class Connection
             $diffInSeconds = Carbon::parse($token['updated_at'])->diffInSeconds(now());
 
             if ($diffInSeconds <= 240) {
-                $this->accessToken = $token['accessToken'];
+                $this->accessToken = $token['access_token'];
+
                 return;
             }
 
@@ -104,15 +107,15 @@ class Connection
                 $params = [
                     'grant_type' => 'refresh_token',
                     'scope' => 'forintegration',
-                    'refresh_token' => $token['refreshToken']
+                    'refresh_token' => $token['refresh_token']
                 ];
 
                 $response = $this->auth($params);
 
                 if ($response['code'] == 200) {
-                    $accessToken = $response['response']['access_token'];
+                    $this->accessToken = $response['response']['access_token'];
 
-                    $token['access_token'] = $accessToken;
+                    $token['access_token'] = $this->accessToken;
                     $token['token_type'] = $response['response']['token_type'];
                     $token['expires_in'] = $response['response']['expires_in'];
                     $token['refresh_token'] = $response['response']['refresh_token'];
@@ -122,7 +125,7 @@ class Connection
 
                     session(['token' => $token]);
 
-                    $this->accessToken = $accessToken;
+                    $this->accessToken = $token['access_token'];
 
                     return;
                 }
@@ -139,9 +142,9 @@ class Connection
         $response = $this->auth($params);
 
         if ($response['code'] == 200) {
-            $accessToken = $response['response']['access_token'];
+            $this->accessToken = $response['response']['access_token'];
 
-            $token['access_token'] = $accessToken;
+            $token['access_token'] = $this->accessToken;
             $token['token_type'] = $response['response']['token_type'];
             $token['expires_in'] = $response['response']['expires_in'];
             $token['refresh_token'] = $response['response']['refresh_token'];
@@ -151,7 +154,7 @@ class Connection
 
             session(['token' => $token]);
 
-            $this->accessToken = $accessToken;
+            $this->accessToken = $token['access_token'];
 
             return;
         }
