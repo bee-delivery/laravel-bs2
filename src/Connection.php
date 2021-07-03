@@ -16,6 +16,8 @@ class Connection
 
     public function __construct()
     {
+        session_start();
+
         $this->baseUrl = config('bs2.base_url');
         $this->apiKey = config('bs2.api_key');
         $this->apiSecret = config('bs2.api_secret');
@@ -92,9 +94,9 @@ class Connection
 
     public function getAccessToken()
     {
-        $token = session('token');
+        if (isset($_SESSION["token"])) {
+            $token = $_SESSION["token"];
 
-        if ($token) {
             $diffInSeconds = Carbon::parse($token['updated_at'])->diffInSeconds(now());
 
             if ($diffInSeconds <= 240) {
@@ -123,7 +125,7 @@ class Connection
                     $token['created_at'] = now();
                     $token['updated_at'] = now();
 
-                    session(['token' => $token]);
+                    $_SESSION["token"] = $token;
 
                     $this->accessToken = $token['access_token'];
 
@@ -142,9 +144,7 @@ class Connection
         $response = $this->auth($params);
 
         if ($response['code'] == 200) {
-            $this->accessToken = $response['response']['access_token'];
-
-            $token['access_token'] = $this->accessToken;
+            $token['access_token'] = $response['response']['access_token'];
             $token['token_type'] = $response['response']['token_type'];
             $token['expires_in'] = $response['response']['expires_in'];
             $token['refresh_token'] = $response['response']['refresh_token'];
@@ -152,7 +152,7 @@ class Connection
             $token['created_at'] = now();
             $token['updated_at'] = now();
 
-            session(['token' => $token]);
+            $_SESSION["token"] = $token;
 
             $this->accessToken = $token['access_token'];
 
