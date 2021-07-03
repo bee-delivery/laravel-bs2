@@ -2,13 +2,15 @@
 
 namespace BeeDelivery\Bs2;
 
+use BeeDelivery\Bs2\Utils\BankingConnection;
+
 class Banking
 {
     protected $http;
 
     public function __construct()
     {
-        $this->http = new Connection();
+        $this->http = new BankingConnection();
     }
 
     public function getSaldo()
