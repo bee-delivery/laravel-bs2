@@ -28,7 +28,7 @@ class Pix
     public function payment($key, $value)
     {
         try {
-            $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/chave', json_encode($key));
+            $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/chave', $key);
 
             if ($response['code'] == 201) {
                 $data = json_decode($response->getBody(), true);
@@ -53,7 +53,7 @@ class Pix
                     "valor" =>  $value
                 ];
 
-                $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/' . $data['pagamentoId'] . '/confirmacao', json_encode($params));
+                $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/' . $data['pagamentoId'] . '/confirmacao', $params);
 
                 if ($response->getStatusCode() == 202) {
                     return [
@@ -81,7 +81,7 @@ class Pix
      * @param int $pagamentoId
      * @return array
      */
-    public function paymentDetails($pagamentoId)
+    public function paymentDetailsByPagamentoId($pagamentoId)
     {
         try {
             $response = $this->http->get('/pix/direto/forintegration/v1/pagamentos/' . $pagamentoId);
@@ -100,13 +100,60 @@ class Pix
 
     /*
      * Cobrança dinâmica - Criar.
+     *
      * @param array $params
      * @return array
      */
     public function dynamicCharge($params)
     {
         try {
-            $response = $this->http->post('/pix/direto/forintegration/v1/qrcodes/dinamico', json_encode($params));
+            $response = $this->http->post('/pix/direto/forintegration/v1/qrcodes/dinamico', $params);
+
+            return [
+                'code' => $response->getStatusCode(),
+                'response' => json_decode($response->getBody(), true)
+            ];
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
+
+    /*
+     * Cobrança - Consultar.
+     *
+     * @param array $params
+     * @return array
+     */
+    public function chargeDetails($params)
+    {
+        try {
+            $response = $this->http->get('/pix/direto/forintegration/v1/cob', $params);
+
+            return [
+                'code' => $response->getStatusCode(),
+                'response' => json_decode($response->getBody(), true)
+            ];
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
+
+    /*
+     * Cobrança - Consultar por TxId.
+     *
+     * @param int $txId
+     * @return array
+     */
+    public function chargeDetailsByTxId($txId)
+    {
+        try {
+            $response = $this->http->get('/pix/direto/forintegration/v1/cob/' . $txId);
 
             return [
                 'code' => $response->getStatusCode(),
