@@ -8,6 +8,11 @@ class Pix
 {
     protected $http;
 
+    /*
+     * Create a new Pix instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->http = new PixConnection();
@@ -80,6 +85,28 @@ class Pix
     {
         try {
             $response = $this->http->get('/pix/direto/forintegration/v1/pagamentos/' . $pagamentoId);
+
+            return [
+                'code' => $response->getStatusCode(),
+                'response' => json_decode($response->getBody(), true)
+            ];
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
+
+    /*
+     * Cobrança dinâmica - Criar.
+     * @param array $params
+     * @return array
+     */
+    public function dynamicCharge($params)
+    {
+        try {
+            $response = $this->http->post('/pix/direto/forintegration/v1/qrcodes/dinamico', json_encode($params));
 
             return [
                 'code' => $response->getStatusCode(),
