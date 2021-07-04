@@ -39,7 +39,7 @@ class Connection
                 'code' => $response->getStatusCode(),
                 'response' => json_decode($response->getBody(), true)
             ];
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return [
                 'code' => $e->getCode(),
                 'response' => $e->getMessage()
@@ -60,7 +60,7 @@ class Connection
                 'code' => $response->getStatusCode(),
                 'response' => json_decode($response->getBody(), true)
             ];
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return [
                 'code' => $e->getCode(),
                 'response' => $e->getMessage()
@@ -83,7 +83,7 @@ class Connection
                 'code' => $response->getStatusCode(),
                 'response' => json_decode($response->getBody(), true)
             ];
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             return [
                 'code' => $e->getCode(),
                 'response' => $e->getMessage()

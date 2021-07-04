@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b6a1b0c85efcbe86d060ce643327684",
+    "content-hash": "b0d86fe3a3afe0c2288f9467efdae73c",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -98,12 +98,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
-                "reference": "deccb956d38710f3f8baf36dd876c3fa1585ec22"
+                "reference": "f9311a35779750f38bed47456c031c4dc4962274"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/collections/zipball/deccb956d38710f3f8baf36dd876c3fa1585ec22",
-                "reference": "deccb956d38710f3f8baf36dd876c3fa1585ec22",
+                "url": "https://api.github.com/repos/illuminate/collections/zipball/f9311a35779750f38bed47456c031c4dc4962274",
+                "reference": "f9311a35779750f38bed47456c031c4dc4962274",
                 "shasum": ""
             },
             "require": {
@@ -140,7 +140,7 @@
             ],
             "description": "The Illuminate Collections package.",
             "homepage": "https://laravel.com",
-            "time": "2021-04-22T21:08:09+00:00"
+            "time": "2021-06-28T13:56:26+00:00"
         },
         {
             "name": "illuminate/container",
@@ -404,70 +404,17 @@
             "time": "2021-06-10T13:13:44+00:00"
         },
         {
-            "name": "laravel/helpers",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/helpers.git",
-                "reference": "1c3c128fa96bad2bc338eab1823fe7372e0c5328"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/helpers/zipball/1c3c128fa96bad2bc338eab1823fe7372e0c5328",
-                "reference": "1c3c128fa96bad2bc338eab1823fe7372e0c5328",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~5.8.0|^6.0|^7.0|^8.0",
-                "php": "^7.1.3|^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.0|^8.0|^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                },
-                {
-                    "name": "Dries Vints",
-                    "email": "dries@laravel.com"
-                }
-            ],
-            "description": "Provides backwards compatibility for helpers in the latest Laravel release.",
-            "keywords": [
-                "helpers",
-                "laravel"
-            ],
-            "time": "2021-03-19T15:09:28+00:00"
-        },
-        {
             "name": "nesbot/carbon",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "27a1ff3b2daf97a1c9d033fe0b1233abbbb8930a"
+                "reference": "cf1583b15bd4f060b8e01e2fbcf25073418f65ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/27a1ff3b2daf97a1c9d033fe0b1233abbbb8930a",
-                "reference": "27a1ff3b2daf97a1c9d033fe0b1233abbbb8930a",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/cf1583b15bd4f060b8e01e2fbcf25073418f65ca",
+                "reference": "cf1583b15bd4f060b8e01e2fbcf25073418f65ca",
                 "shasum": ""
             },
             "require": {
@@ -543,7 +490,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-14T17:41:00+00:00"
+            "time": "2021-07-01T17:17:31+00:00"
         },
         {
             "name": "psr/container",
@@ -643,12 +590,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "4411daa706a497da39b56619c0b2dbbe42b1fba3"
+                "reference": "7d2daed44690c1cbf7dc5db378f67775fe1f19ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/4411daa706a497da39b56619c0b2dbbe42b1fba3",
-                "reference": "4411daa706a497da39b56619c0b2dbbe42b1fba3",
+                "url": "https://api.github.com/repos/symfony/console/zipball/7d2daed44690c1cbf7dc5db378f67775fe1f19ca",
+                "reference": "7d2daed44690c1cbf7dc5db378f67775fe1f19ca",
                 "shasum": ""
             },
             "require": {
@@ -730,7 +677,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-12T10:16:15+00:00"
+            "time": "2021-07-03T17:16:33+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -1346,12 +1293,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "92855c727d7edabe004605f451ef0b274fa24490"
+                "reference": "c29a3e649843f4a34eaa4be2683f4914e8b7f023"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/92855c727d7edabe004605f451ef0b274fa24490",
-                "reference": "92855c727d7edabe004605f451ef0b274fa24490",
+                "url": "https://api.github.com/repos/symfony/string/zipball/c29a3e649843f4a34eaa4be2683f4914e8b7f023",
+                "reference": "c29a3e649843f4a34eaa4be2683f4914e8b7f023",
                 "shasum": ""
             },
             "require": {
@@ -1418,7 +1365,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-06T09:52:30+00:00"
+            "time": "2021-06-27T12:34:25+00:00"
         },
         {
             "name": "symfony/translation",
@@ -1426,12 +1373,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "90080fc95a046c5375020941bc3aa013fddf1d4f"
+                "reference": "2e7e39686393126e98deff94ef695a59680b7b3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/90080fc95a046c5375020941bc3aa013fddf1d4f",
-                "reference": "90080fc95a046c5375020941bc3aa013fddf1d4f",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/2e7e39686393126e98deff94ef695a59680b7b3c",
+                "reference": "2e7e39686393126e98deff94ef695a59680b7b3c",
                 "shasum": ""
             },
             "require": {
@@ -1454,7 +1401,7 @@
             "require-dev": {
                 "psr/log": "~1.0",
                 "symfony/config": "^4.4|^5.0|^6.0",
-                "symfony/console": "^4.4|^5.0|^6.0",
+                "symfony/console": "^5.4|^6.0",
                 "symfony/dependency-injection": "^5.0|^6.0",
                 "symfony/finder": "^4.4|^5.0|^6.0",
                 "symfony/http-kernel": "^5.0|^6.0",
@@ -1510,7 +1457,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-06T09:52:30+00:00"
+            "time": "2021-07-03T17:16:33+00:00"
         },
         {
             "name": "symfony/translation-contracts",
