@@ -26,33 +26,65 @@ class Pix
             $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/chave', json_encode($key));
 
             if ($response['code'] == 201) {
+                $data = json_decode($response->getBody(), true);
+
                 $params = [
                     "recebedor" =>  [
-                        "ispb" =>  $response['recebedor']['ispb'],
+                        "ispb" =>  $data['recebedor']['ispb'],
                         "conta" =>  [
-                            "banco" =>  $response['recebedor']['ispb'],
-                            "bancoNome" =>  $response['recebedor']['conta']['banco'],
-                            "agencia" =>  $response['recebedor']['conta']['agencia'],
-                            "numero" =>  $response['recebedor']['conta']['numero'],
-                            "tipo" =>  $response['recebedor']['conta']['tipo']
+                            "banco" =>  $data['recebedor']['ispb'],
+                            "bancoNome" =>  $data['recebedor']['conta']['banco'],
+                            "agencia" =>  $data['recebedor']['conta']['agencia'],
+                            "numero" =>  $data['recebedor']['conta']['numero'],
+                            "tipo" =>  $data['recebedor']['conta']['tipo']
                         ],
                         "pessoa" =>  [
-                            "documento" =>  $response['recebedor']['pessoa']['documento'],
-                            "tipoDocumento" =>  $response['recebedor']['pessoa']['tipoDocumento'],
-                            "nome" =>  $response['recebedor']['pessoa']['nome'],
-                            "nomeFantasia" =>  $response['recebedor']['pessoa']['nomeFantasia']
+                            "documento" =>  $data['recebedor']['pessoa']['documento'],
+                            "tipoDocumento" =>  $data['recebedor']['pessoa']['tipoDocumento'],
+                            "nome" =>  $data['recebedor']['pessoa']['nome'],
+                            "nomeFantasia" =>  $data['recebedor']['pessoa']['nomeFantasia']
                         ]
                     ],
                     "valor" =>  $value
                 ];
 
-                $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/' . $response['pagamentoId'] . '/confirmacao', json_encode($params));
+                $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/' . $data['pagamentoId'] . '/confirmacao', json_encode($params));
+
+                if ($response->getStatusCode() == 202) {
+                    return [
+                        'code' => $response->getStatusCode(),
+                        'response' => $data
+                    ];
+                }
 
                 return [
                     'code' => $response->getStatusCode(),
                     'response' => json_decode($response->getBody(), true)
                 ];
             }
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
+
+    /*
+     * Pagamento - Consultar por PagamentoId.
+     *
+     * @param int $pagamentoId
+     * @return array
+     */
+    public function paymentDetails($pagamentoId)
+    {
+        try {
+            $response = $this->http->get('/pix/direto/forintegration/v1/pagamentos/' . $pagamentoId);
+
+            return [
+                'code' => $response->getStatusCode(),
+                'response' => json_decode($response->getBody(), true)
+            ];
         } catch (\Exception $e) {
             return [
                 'code' => $e->getCode(),
