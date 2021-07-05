@@ -31,7 +31,7 @@ class Pix
             $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/chave', $key);
 
             if ($response['code'] == 201) {
-                $data = json_decode($response->getBody(), true);
+                $data = $response['response'];
 
                 $params = [
                     "recebedor" =>  [
@@ -55,17 +55,14 @@ class Pix
 
                 $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/' . $data['pagamentoId'] . '/confirmacao', $params);
 
-                if ($response->getStatusCode() == 202) {
+                if ($response['code'] == 202) {
                     return [
-                        'code' => $response->getStatusCode(),
+                        'code' => $response['code'],
                         'response' => $data
                     ];
                 }
 
-                return [
-                    'code' => $response->getStatusCode(),
-                    'response' => json_decode($response->getBody(), true)
-                ];
+                return $response;
             }
         } catch (\Exception $e) {
             return [
@@ -86,10 +83,7 @@ class Pix
         try {
             $response = $this->http->get('/pix/direto/forintegration/v1/pagamentos/' . $pagamentoId);
 
-            return [
-                'code' => $response->getStatusCode(),
-                'response' => json_decode($response->getBody(), true)
-            ];
+            return $response;
         } catch (\Exception $e) {
             return [
                 'code' => $e->getCode(),
@@ -109,10 +103,7 @@ class Pix
         try {
             $response = $this->http->post('/pix/direto/forintegration/v1/qrcodes/dinamico', $params);
 
-            return [
-                'code' => $response->getStatusCode(),
-                'response' => json_decode($response->getBody(), true)
-            ];
+            return $response;
         } catch (\Exception $e) {
             return [
                 'code' => $e->getCode(),
@@ -132,10 +123,7 @@ class Pix
         try {
             $response = $this->http->get('/pix/direto/forintegration/v1/cob', $params);
 
-            return [
-                'code' => $response->getStatusCode(),
-                'response' => json_decode($response->getBody(), true)
-            ];
+            return $response;
         } catch (\Exception $e) {
             return [
                 'code' => $e->getCode(),
@@ -155,10 +143,47 @@ class Pix
         try {
             $response = $this->http->get('/pix/direto/forintegration/v1/cob/' . $txId);
 
+            return $response;
+        } catch (\Exception $e) {
             return [
-                'code' => $response->getStatusCode(),
-                'response' => json_decode($response->getBody(), true)
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
             ];
+        }
+    }
+
+    /*
+     * Recebimento - Consultar.
+     *
+     * @param array $params
+     * @return array
+     */
+    public function receiptDetails($params)
+    {
+        try {
+            $response = $this->http->get('/pix/direto/forintegration/v1/recebimentos', $params);
+
+            return $response;
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
+
+    /*
+     * Recebimento - Consultar por RecebimentoId.
+     *
+     * @param int $recebimentoId
+     * @return array
+     */
+    public function receiptDetailsByRecebimentoId($recebimentoId)
+    {
+        try {
+            $response = $this->http->get('/pix/direto/forintegration/v1/recebimentos/' . $recebimentoId);
+
+            return $response;
         } catch (\Exception $e) {
             return [
                 'code' => $e->getCode(),
