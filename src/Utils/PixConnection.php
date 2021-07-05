@@ -6,10 +6,32 @@ use Carbon\Carbon;
 
 class PixConnection extends Connection
 {
+    protected $baseUrl;
+    protected $apiKey;
+    protected $apiSecret;
+    protected $username;
+    protected $password;
+    protected $accessToken;
+
+    public function __construct()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $this->baseUrl = config('bs2.base_url');
+        $this->apiKey = config('bs2.api_key');
+        $this->apiSecret = config('bs2.api_secret');
+        $this->username = config('bs2.username');
+        $this->password = config('bs2.password');
+
+        $this->getAccessToken();
+    }
+
     public function getAccessToken()
     {
-        if (isset($_SESSION["token"])) {
-            $token = $_SESSION["token"];
+        if (isset($_SESSION["pixToken"])) {
+            $token = $_SESSION["pixToken"];
 
             $diffInSeconds = Carbon::parse($token['updated_at'])->diffInSeconds(now());
 
@@ -17,34 +39,6 @@ class PixConnection extends Connection
                 $this->accessToken = $token['access_token'];
 
                 return;
-            }
-
-            if ($diffInSeconds <= 540) {
-                $params = [
-                    'grant_type' => 'refresh_token',
-                    'scope' => 'forintegration',
-                    'refresh_token' => $token['refresh_token']
-                ];
-
-                $response = $this->auth($params);
-
-                if ($response['code'] == 200) {
-                    $this->accessToken = $response['response']['access_token'];
-
-                    $token['access_token'] = $this->accessToken;
-                    $token['token_type'] = $response['response']['token_type'];
-                    $token['expires_in'] = $response['response']['expires_in'];
-                    $token['refresh_token'] = $response['response']['refresh_token'];
-                    $token['scope'] = $response['response']['scope'];
-                    $token['created_at'] = now();
-                    $token['updated_at'] = now();
-
-                    $_SESSION["token"] = $token;
-
-                    $this->accessToken = $token['access_token'];
-
-                    return;
-                }
             }
         }
 
@@ -66,7 +60,7 @@ class PixConnection extends Connection
             $token['created_at'] = now();
             $token['updated_at'] = now();
 
-            $_SESSION["token"] = $token;
+            $_SESSION["pixToken"] = $token;
 
             $this->accessToken = $token['access_token'];
 

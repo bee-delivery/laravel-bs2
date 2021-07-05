@@ -6,10 +6,32 @@ use Carbon\Carbon;
 
 class BankingConnection extends Connection
 {
+    protected $baseUrl;
+    protected $apiKey;
+    protected $apiSecret;
+    protected $username;
+    protected $password;
+    protected $accessToken;
+
+    public function __construct()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $this->baseUrl = config('bs2.base_url');
+        $this->apiKey = config('bs2.api_key');
+        $this->apiSecret = config('bs2.api_secret');
+        $this->username = config('bs2.username');
+        $this->password = config('bs2.password');
+
+        $this->getAccessToken();
+    }
+
     public function getAccessToken()
     {
-        if (isset($_SESSION["token"])) {
-            $token = $_SESSION["token"];
+        if (isset($_SESSION["bankingToken"])) {
+            $token = $_SESSION["bankingToken"];
 
             $diffInSeconds = Carbon::parse($token['updated_at'])->diffInSeconds(now());
 
@@ -39,7 +61,7 @@ class BankingConnection extends Connection
                     $token['created_at'] = now();
                     $token['updated_at'] = now();
 
-                    $_SESSION["token"] = $token;
+                    $_SESSION["bankingToken"] = $token;
 
                     $this->accessToken = $token['access_token'];
 
@@ -66,7 +88,7 @@ class BankingConnection extends Connection
             $token['created_at'] = now();
             $token['updated_at'] = now();
 
-            $_SESSION["token"] = $token;
+            $_SESSION["bankingToken"] = $token;
 
             $this->accessToken = $token['access_token'];
 

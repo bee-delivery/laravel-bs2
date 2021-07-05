@@ -6,26 +6,6 @@ use Illuminate\Support\Facades\Http;
 
 class Connection
 {
-    protected $baseUrl;
-    protected $apiKey;
-    protected $apiSecret;
-    protected $username;
-    protected $password;
-    protected $accessToken;
-
-    public function __construct()
-    {
-        session_start();
-
-        $this->baseUrl = config('bs2.base_url');
-        $this->apiKey = config('bs2.api_key');
-        $this->apiSecret = config('bs2.api_secret');
-        $this->username = config('bs2.username');
-        $this->password = config('bs2.password');
-
-        $this->getAccessToken();
-    }
-
     public function get($url, $params = null)
     {
         try {
