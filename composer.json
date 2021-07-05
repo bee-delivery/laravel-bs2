@@ -20,5 +20,12 @@
         "psr-4": {
             "BeeDelivery\\Bs2\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BeeDelivery\\Bs2\\Bs2ServiceProvider"
+            ]
+        }
     }
 }
