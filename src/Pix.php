@@ -2,10 +2,13 @@
 
 namespace BeeDelivery\Bs2;
 
+use BeeDelivery\Bs2\Utils\Helpers;
 use BeeDelivery\Bs2\Utils\PixConnection;
 
 class Pix
 {
+    use Helpers;
+
     protected $http;
 
     /*
@@ -27,6 +30,8 @@ class Pix
     public function startPaymentByKey($key)
     {
         try {
+            $this->validatePixKey($key);
+
             $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/chave', $key);
 
             return $response;
@@ -48,6 +53,8 @@ class Pix
     public function confirmPayment($pagamentoId, $params)
     {
         try {
+            $this->validateConfirmPaymentData($params);
+
             $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/' . $pagamentoId . '/confirmacao', $params);
 
             return $response;
