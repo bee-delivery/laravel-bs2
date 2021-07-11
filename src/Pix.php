@@ -19,56 +19,38 @@ class Pix
     }
 
     /*
-     * Pagamento - Iniciar pagamento por chave e confirmar.
+     * Pagamento - Iniciar pagamento por chave.
      *
      * @param array $key
-     * @param int $value
      * @return array
      */
-    public function payment($key, $value)
+    public function startPaymentByKey($key)
     {
         try {
             $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/chave', $key);
 
-            if ($response['code'] == 200) {
-                $data = $response['response'];
-
-                $params = [
-                    "recebedor" =>  [
-                        "ispb" =>  $data['recebedor']['ispb'],
-                        "conta" =>  [
-                            "banco" =>  $data['recebedor']['ispb'],
-                            "bancoNome" =>  $data['recebedor']['conta']['banco'],
-                            "agencia" =>  $data['recebedor']['conta']['agencia'],
-                            "numero" =>  $data['recebedor']['conta']['numero'],
-                            "tipo" =>  $data['recebedor']['conta']['tipo']
-                        ],
-                        "pessoa" =>  [
-                            "documento" =>  $data['recebedor']['pessoa']['documento'],
-                            "tipoDocumento" =>  $data['recebedor']['pessoa']['tipoDocumento'],
-                            "nome" =>  $data['recebedor']['pessoa']['nome'],
-                            "nomeFantasia" =>  $data['recebedor']['pessoa']['nomeFantasia']
-                        ]
-                    ],
-                    "valor" =>  $value
-                ];
-
-                $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/' . $data['pagamentoId'] . '/confirmacao', $params);
-
-                if ($response['code'] == 202) {
-                    return [
-                        'code' => $response['code'],
-                        'response' => $data
-                    ];
-                }
-
-                return $response;
-            }
-
+            return $response;
+        } catch (\Exception $e) {
             return [
-                'code' => $response['code'],
-                'response' => $response['response']
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
             ];
+        }
+    }
+
+    /*
+     * Pagamento - Confirmar
+     *
+     * @param int $pagamentoId
+     * @param int $value
+     * @return array
+     */
+    public function confirmPayment($pagamentoId, $params)
+    {
+        try {
+            $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/' . $pagamentoId . '/confirmacao', $params);
+
+            return $response;
         } catch (\Exception $e) {
             return [
                 'code' => $e->getCode(),
