@@ -30,7 +30,7 @@ class Pix
         try {
             $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/chave', $key);
 
-            if ($response['code'] == 201) {
+            if ($response['code'] == 200) {
                 $data = $response['response'];
 
                 $params = [
@@ -64,6 +64,11 @@ class Pix
 
                 return $response;
             }
+
+            return [
+                'code' => $response['code'],
+                'response' => $response['response']
+            ];
         } catch (\Exception $e) {
             return [
                 'code' => $e->getCode(),

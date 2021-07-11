@@ -32,7 +32,6 @@ class PixConnection extends Connection
     {
         if (isset($_SESSION["pixToken"])) {
             $token = $_SESSION["pixToken"];
-
             $diffInSeconds = Carbon::parse($token['updated_at'])->diffInSeconds(now());
 
             if ($diffInSeconds <= 240) {
@@ -43,10 +42,8 @@ class PixConnection extends Connection
         }
 
         $params = [
-            'grant_type' => 'password',
-            'scope' => 'forintegration',
-            'username' => $this->username,
-            'password' => $this->password
+            'grant_type' => 'client_credentials',
+            'scope' => 'cob.write cob.read pix.write pix.read webhook.read webhook.write',
         ];
 
         $response = $this->auth($params);
@@ -55,7 +52,6 @@ class PixConnection extends Connection
             $token['access_token'] = $response['response']['access_token'];
             $token['token_type'] = $response['response']['token_type'];
             $token['expires_in'] = $response['response']['expires_in'];
-            $token['refresh_token'] = $response['response']['refresh_token'];
             $token['scope'] = $response['response']['scope'];
             $token['created_at'] = now();
             $token['updated_at'] = now();
