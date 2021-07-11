@@ -20,8 +20,8 @@ class PixConnection extends Connection
         }
 
         $this->baseUrl = config('bs2.base_url');
-        $this->apiKey = config('bs2.api_key');
-        $this->apiSecret = config('bs2.api_secret');
+        $this->apiKey = config('bs2.api_pix_key');
+        $this->apiSecret = config('bs2.api_pix_secret');
         $this->username = config('bs2.username');
         $this->password = config('bs2.password');
 
