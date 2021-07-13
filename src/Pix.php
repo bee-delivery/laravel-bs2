@@ -117,6 +117,8 @@ class Pix
     public function chargeDetails($params)
     {
         try {
+            $this->validateChargeDetailsData($params);
+
             $response = $this->http->get('/pix/direto/forintegration/v1/cob', $params);
 
             return $response;
@@ -137,6 +139,10 @@ class Pix
     public function chargeDetailsByTxId($txId)
     {
         try {
+            $this->validateChargeDetailsByTxIdData([
+                'txId' => $txId
+            ]);
+
             $response = $this->http->get('/pix/direto/forintegration/v1/cob/' . $txId);
 
             return $response;

@@ -9,7 +9,7 @@ trait Helpers
     /*
      * Valida chave pix.
      *
-     * @paran array $key
+     * @param array $key
      * @return void
      */
     public function validatePixKey($key)
@@ -30,7 +30,7 @@ trait Helpers
     /*
      * Valida dados para confirmação de pagamento.
      *
-     * @paran array $data
+     * @param array $data
      * @return void
      */
     public function validateConfirmPaymentData($data)
@@ -50,7 +50,7 @@ trait Helpers
             'recebedor.pessoa.nomeFantasia' => 'required|string',
 
             'valor' => 'required|integer',
-            'campoLivre' => 'nullable|string',
+            'campoLivre' => 'nullable|string'
 
         ]);
 
@@ -62,7 +62,7 @@ trait Helpers
     /*
      * Valida dados para criação de cobrança dinâmica.
      *
-     * @paran array $data
+     * @param array $data
      * @return void
      */
     public function validateDynamicChargeData($data)
@@ -78,7 +78,46 @@ trait Helpers
             'cobranca.infoAdicionais.nome' => 'nullable|string',
             'cobranca.infoAdicionais.valor' => 'nullable|string',
             'aceitaMaisDeUmPagamento' => 'nullable|boolean',
-            'recebivelAposVencimento' => 'nullable|boolean',
+            'recebivelAposVencimento' => 'nullable|boolean'
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first());
+        }
+    }
+
+    /*
+     * Valida dados para consulta de cobranças.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function validateChargeDetailsData($data)
+    {
+        $validator = Validator::make($data, [
+            'Inicio' => 'required|date_format:Y-m-d',
+            'Fim' => 'required|date_format:Y-m-d',
+            'Cpf' => 'nullable|string',
+            'Cnpj' => 'nullable|string',
+            'LocationPresent' => 'nullable|boolean',
+            'Status' => 'nullable|string'
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first());
+        }
+    }
+
+    /*
+     * Valida dados para consulta de cobrança por txId.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function validateChargeDetailsByTxIdData($data)
+    {
+        $validator = Validator::make($data, [
+            'txId' => 'required|string',
         ]);
 
         if ($validator->fails()) {
