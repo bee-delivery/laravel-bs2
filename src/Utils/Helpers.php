@@ -58,4 +58,31 @@ trait Helpers
             throw new \Exception($validator->errors()->first());
         }
     }
+
+    /*
+     * Valida dados para criação de cobrança dinâmica.
+     *
+     * @paran array $data
+     * @return void
+     */
+    public function validateDynamicChargeData($data)
+    {
+        $validator = Validator::make($data, [
+            'txId' => 'required|string',
+            'cobranca.calendario.expiracao' => 'required|integer',
+            'cobranca.devedor.cpf' => 'nullable|string',
+            'cobranca.devedor.cnpj' => 'nullable|string',
+            'cobranca.devedor.nome' => 'required|string',
+            'cobranca.valor.original' => 'required|integer',
+            'cobranca.chave' => 'required|string',
+            'cobranca.infoAdicionais.nome' => 'nullable|string',
+            'cobranca.infoAdicionais.valor' => 'nullable|string',
+            'aceitaMaisDeUmPagamento' => 'nullable|boolean',
+            'recebivelAposVencimento' => 'nullable|boolean',
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first());
+        }
+    }
 }

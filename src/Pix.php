@@ -95,6 +95,8 @@ class Pix
     public function dynamicCharge($params)
     {
         try {
+            $this->validateDynamicChargeData($params);
+
             $response = $this->http->post('/pix/direto/forintegration/v1/qrcodes/dinamico', $params);
 
             return $response;
