@@ -163,6 +163,8 @@ class Pix
     public function receiptDetails($params)
     {
         try {
+            $this->validateReceiptDetailsData($params);
+
             $response = $this->http->get('/pix/direto/forintegration/v1/recebimentos', $params);
 
             return $response;
@@ -183,6 +185,10 @@ class Pix
     public function receiptDetailsByRecebimentoId($recebimentoId)
     {
         try {
+            $this->validateReceiptDetailsByRecebimentoIdData([
+                'recebimentoId' => $recebimentoId
+            ]);
+
             $response = $this->http->get('/pix/direto/forintegration/v1/recebimentos/' . $recebimentoId);
 
             return $response;

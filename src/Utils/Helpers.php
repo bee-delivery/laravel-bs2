@@ -124,4 +124,42 @@ trait Helpers
             throw new \Exception($validator->errors()->first());
         }
     }
+
+    /*
+     * Valida dados para consulta de recebimentos.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function validateReceiptDetailsData($data)
+    {
+        $validator = Validator::make($data, [
+            'Inicio' => 'required|date_format:Y-m-d',
+            'Fim' => 'required|date_format:Y-m-d',
+            'Status' => 'nullable|string',
+            'txId' => 'nullable|string'
+
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first());
+        }
+    }
+
+    /*
+     * Valida dados para consulta de recebimentos por recebimentoId.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function validateReceiptDetailsByRecebimentoIdData($data)
+    {
+        $validator = Validator::make($data, [
+            'recebimentoId' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first());
+        }
+    }
 }
