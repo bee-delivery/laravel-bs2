@@ -1,7 +1,5 @@
 # Laravel Bs2
 
-## Sobre
-
 Laravel Bs2 é um pacote Laravel para integração com as APIs de serviços financeiros do banco Bs2.
 <br>
 Para utilizar esses serviços é necessário ser um parceiro do bs2. Para mais detalhes acesse: <https://empresas.bancobs2.com.br/>.
