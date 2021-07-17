@@ -6,6 +6,14 @@ use Illuminate\Support\Facades\Http;
 
 class Connection
 {
+    /*
+     * Realiza uma solicitação get padrão utilizando
+     * Bearer Authentication.
+     *
+     * @param string $url
+     * @param array|null $params
+     * @return array
+     */
     public function get($url, $params = null)
     {
         try {
@@ -27,6 +35,14 @@ class Connection
         }
     }
 
+    /*
+     * Realiza uma solicitação post padrão utilizando
+     * Bearer Authentication.
+     *
+     * @param string $url
+     * @param array|null $params
+     * @return array
+     */
     public function post($url, $params = null)
     {
         try {
@@ -48,6 +64,13 @@ class Connection
         }
     }
 
+    /*
+     * Realiza uma solicitação post utilizando Basic Authentication
+     * para gerar um token de acesso.
+     *
+     * @param array $params
+     * @return array
+     */
     public function auth($params)
     {
         try {

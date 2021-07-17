@@ -13,6 +13,12 @@ class PixConnection extends Connection
     protected $password;
     protected $accessToken;
 
+    /*
+     * Pega valores no arquivo de configuração do pacote e atribui às variáveis
+     * para utilização na classe.
+     *
+     * @return void
+     */
     public function __construct()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -28,6 +34,12 @@ class PixConnection extends Connection
         $this->getAccessToken();
     }
 
+    /*
+     * Pega o token de acesso da sessão ou gera um novo para
+     * utilização na próxima requisição.
+     *
+     * @return array|void
+     */
     public function getAccessToken()
     {
         if (isset($_SESSION["pixToken"])) {
