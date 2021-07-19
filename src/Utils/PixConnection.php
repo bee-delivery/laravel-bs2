@@ -55,7 +55,7 @@ class PixConnection extends Connection
 
         $params = [
             'grant_type' => 'client_credentials',
-            'scope' => 'cob.write cob.read pix.write pix.read webhook.read webhook.write',
+            'scope' => 'cob.write cob.read cobv.write cobv.read pix.write pix.read webhook.read webhook.write',
         ];
 
         $response = $this->auth($params);
