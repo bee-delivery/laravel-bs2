@@ -19,30 +19,9 @@ Você pode acessar <https://devs.bs2.com/> para mais detalhes técnicos.
 TODO
 
 ## Configuração
-Uma vez que você possua todas as credenciais de acesso, é necessário criar variáveis no .env do seu projeto.
+Uma vez que você possua todas as credenciais de acesso, é necessário criar as variáveis no .env do seu projeto.
 <br>
-São elas:
-
-#### BS2_BASE_URL
-Contendo a url base da API do bs2. Pode ser do ambiente de homologação ou produção.
-
-#### BS2_BANKING_API_KEY
-Contendo a api_key para o serviço de Banking.
-
-#### BS2_BANKING_API_SECRET
-Contendo a api_secret para o serviço de Banking.
-
-#### BS2_PIX_API_KEY
-Contendo a api_key para o serviço de PIX.
-
-#### BS2_PIX_API_SECRET
-Contendo a api_secret para o serviço de PIX.
-
-#### BS2_USERNAME
-Contendo um username para o serviço de Banking (autenticação).
-
-#### BS2_PASSWORD
-Contendo um password para o serviço de Banking (autenticação).
+Acesse **src/config/bs2.php** para mais detalhes.
 
 ## Utilização
 Cada serviço financeiro possui sua própria classe com seus métodos.
