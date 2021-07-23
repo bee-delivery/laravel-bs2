@@ -138,7 +138,6 @@ trait Helpers
             'Fim' => 'required|date_format:Y-m-d',
             'Status' => 'nullable|string',
             'txId' => 'nullable|string'
-
         ]);
 
         if ($validator->fails()) {
@@ -156,6 +155,52 @@ trait Helpers
     {
         $validator = Validator::make($data, [
             'recebimentoId' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first());
+        }
+    }
+
+    /*
+     * Valida dados para atualização de inscrições do webhook.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function validateUpdateWebhookRegistrationsData($data)
+    {
+        if (! is_array($data)) {
+            throw new \Exception("Parameters must be inside an array.");
+        }
+
+        $data = $data[0];
+
+        $validator = Validator::make($data, [
+            'url' => 'required|string',
+            'eventos' => 'required|array',
+            'somenteComTxId' => 'required|boolean',
+            'contaNumero' => 'required|integer',
+            'autorizacao' => 'required|array',
+            'autorizacao.valor' => 'required|string',
+            'autorizacao.tipo' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first());
+        }
+    }
+
+    /*
+     * Valida dados para exclusão de inscrição do webhook.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function validateDeleteWebhookRegistrationData($data)
+    {
+        $validator = Validator::make($data, [
+            'inscricaoId' => 'required|string',
         ]);
 
         if ($validator->fails()) {
