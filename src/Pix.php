@@ -199,4 +199,69 @@ class Pix
             ];
         }
     }
+
+    /*
+     * Webhook - Consultar.
+     *
+     * @return array
+     */
+    public function getWebhookRegistrations()
+    {
+        try {
+            $response = $this->http->get('/pix/direto/forintegration/v1/webhook/bs2');
+
+            return $response;
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
+
+    /*
+     * Webhook - Configurar.
+     *
+     * @param array $params
+     * @return array
+     */
+    public function updateWebhookRegistrations($params)
+    {
+        try {
+            $this->validateUpdateWebhookRegistrationsData($params);
+
+            $response = $this->http->put('/pix/direto/forintegration/v1/webhook/bs2', $params);
+
+            return $response;
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
+
+    /*
+     * Webhook - Excluir.
+     *
+     * @param string $inscricaoId
+     * @return array
+     */
+    public function deleteWebhookRegistration($inscricaoId)
+    {
+        try {
+            $this->validateDeleteWebhookRegistrationData([
+                'inscricaoId' => $inscricaoId
+            ]);
+
+            $response = $this->http->delete('/pix/direto/forintegration/v1/webhook/bs2/' . $inscricaoId);
+
+            return $response;
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
 }
