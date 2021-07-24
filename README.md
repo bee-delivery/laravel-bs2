@@ -60,7 +60,7 @@ class Controller
 
     public function chargeDetailsByTxId()
     {
-        $txId = 'BEE123456789';
+        $txId = '41CCA23BA08AAE93BB45BFBE29C85C7';
 
         $response = $this->pix->chargeDetailsByTxId($txId);
 
