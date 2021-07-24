@@ -16,7 +16,9 @@ Para utilizar os métodos acima você precisará de um token de acesso, que já 
 Você pode acessar <https://devs.bs2.com/> para mais detalhes técnicos.
 
 ## Instalando
-TODO
+```bash
+composer require beedelivery/laravel-bs2
+```
 
 ## Configuração
 Uma vez que você possua todas as credenciais de acesso, é necessário criar as variáveis no .env do seu projeto.
@@ -68,4 +70,4 @@ class Controller
 ```
 
 ## Licença
-TODO
+GNU GENERAL PUBLIC LICENSE
