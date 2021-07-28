@@ -49,7 +49,7 @@ trait Helpers
             'recebedor.pessoa.nome' => 'required|string',
             'recebedor.pessoa.nomeFantasia' => 'required|string',
 
-            'valor' => 'required|integer',
+            'valor' => 'required',
             'campoLivre' => 'nullable|string'
 
         ]);
@@ -73,7 +73,7 @@ trait Helpers
             'cobranca.devedor.cpf' => 'nullable|string',
             'cobranca.devedor.cnpj' => 'nullable|string',
             'cobranca.devedor.nome' => 'required|string',
-            'cobranca.valor.original' => 'required|integer',
+            'cobranca.valor.original' => 'required',
             'cobranca.chave' => 'required|string',
             'cobranca.infoAdicionais.nome' => 'nullable|string',
             'cobranca.infoAdicionais.valor' => 'nullable|string',
