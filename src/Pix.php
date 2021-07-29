@@ -268,14 +268,15 @@ class Pix
     /*
      * Webhook - Incluir certificado.
      *
-     * @param string $filePath
-     * @param string|null $newFileName
+     * @param array $params
      * @return array
      */
-    public function includeWebhookCertificate($filePath, $newFileName = null)
+    public function includeWebhookCertificate($params)
     {
+        $this->validateIncludeWebhookCertificateData($params);
+
         try {
-            $response = $this->http->putAttach('/pix/direto/forintegration/v1/webhook/bs2/certificado', 'certificado', $filePath, $newFileName ?? $filePath);
+            $response = $this->http->putAttach('/pix/direto/forintegration/v1/webhook/bs2/certificado', 'certificado', $params['filePath'], $params['newFileName'] ?? $params['filePath']);
 
             return $response;
         } catch (\Exception $e) {

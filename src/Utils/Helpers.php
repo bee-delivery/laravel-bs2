@@ -207,4 +207,22 @@ trait Helpers
             throw new \Exception($validator->errors()->first());
         }
     }
+
+    /*
+     * Valida dados para inclusão de certificado de webhook.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function validateIncludeWebhookCertificateData($data)
+    {
+        $validator = Validator::make($data, [
+            'filePath' => 'required|string',
+            'newFileName' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first());
+        }
+    }
 }
