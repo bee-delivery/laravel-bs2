@@ -151,4 +151,33 @@ class Connection
             ];
         }
     }
+
+    /*
+     * Realiza uma solicitação put com envio de arquivos
+     * utilizando Bearer Authentication.
+     *
+     * @param string $url
+     * @param string $fileName
+     * @param string $filePath
+     * @param string $newFileName
+     * @return array
+     */
+    public function putAttach($url, $fileName, $filePath, $newFileName)
+    {
+        try {
+            $response = Http::attach($fileName, file_get_contents($filePath), $newFileName)
+                ->withToken($this->accessToken)
+                ->put($this->baseUrl . $url);
+
+            return [
+                'code' => $response->getStatusCode(),
+                'response' => json_decode($response->getBody(), true)
+            ];
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
 }
