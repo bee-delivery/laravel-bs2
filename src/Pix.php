@@ -201,6 +201,25 @@ class Pix
     }
 
     /*
+     * Pagamentos - Consultar.
+     *
+     * @return array
+     */
+    public function payments($params)
+    {
+        try {
+            $response = $this->http->get('/pix/direto/forintegration/v1/pagamentos', $params);
+
+            return $response;
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
+
+    /*
      * Webhook - Consultar.
      *
      * @return array
