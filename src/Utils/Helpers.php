@@ -38,7 +38,6 @@ trait Helpers
         $validator = Validator::make($data, [
             'recebedor.ispb' => 'required|string',
 
-            'recebedor.conta.banco' => 'required|string',
             'recebedor.conta.bancoNome' => 'required|string',
             'recebedor.conta.agencia' => 'required|string',
             'recebedor.conta.numero' => 'required|string',
