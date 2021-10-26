@@ -4,7 +4,7 @@
     "keywords": ["bs2", "laravel", "bank"],
     "type": "library",
     "require": {
-        "php": "^7.3"
+        "php": "^7.3|^8.0"
     },
     "license": "MIT",
     "authors": [
