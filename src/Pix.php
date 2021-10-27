@@ -44,7 +44,29 @@ class Pix
     }
 
     /*
-     * Pagamento - Confirmar
+     * Pagamento - Iniciar pagamento por manual.
+     *
+     * @param array $params
+     * @return array
+     */
+    public function startPaymentManually($params)
+    {
+        try {
+            $this->validateStartPaymentManually($params);
+
+            $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/manual', $params);
+
+            return $response;
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
+
+    /*
+     * Pagamento - Confirmar.
      *
      * @param int $pagamentoId
      * @param int $value
