@@ -28,6 +28,31 @@ trait Helpers
     }
 
     /*
+     * Valida dados para iniciar pagamento por manual.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function validateStartPaymentManually($data)
+    {
+        $validator = Validator::make($data, [
+            'recebedor.ispb' => 'required|string',
+
+            'recebedor.conta.agencia' => 'required|string',
+            'recebedor.conta.numero' => 'required|string',
+            'recebedor.conta.tipo' => 'required|string',
+
+            'recebedor.pessoa.documento' => 'required|string',
+            'recebedor.pessoa.tipoDocumento' => 'required|string',
+            'recebedor.pessoa.nome' => 'required|string',
+            'recebedor.pessoa.nomeFantasia' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first());
+        }
+    }
+    /*
      * Valida dados para confirmação de pagamento.
      *
      * @param array $data
@@ -50,7 +75,6 @@ trait Helpers
 
             'valor' => 'required',
             'campoLivre' => 'nullable|string'
-
         ]);
 
         if ($validator->fails()) {
