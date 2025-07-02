@@ -67,6 +67,28 @@ class Pix
     }
 
     /*
+     * Pagamento - Iniciar pagamento assíncrono.
+     *
+     * @param array $params
+     * @return array
+     */
+    public function asyncPayment($params)
+    {
+        try {
+            $this->validateAsyncPaymentData($params);
+
+            $response = $this->http->post('/pix/direto/forintegration/v1/pagamentos/chave/solicitacoes', $params);
+
+            return $response;
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
+
+    /*
      * Pagamento - Consultar por PagamentoId.
      *
      * @param int $pagamentoId
@@ -76,6 +98,26 @@ class Pix
     {
         try {
             $response = $this->http->get('/pix/direto/forintegration/v1/pagamentos/' . $pagamentoId);
+
+            return $response;
+        } catch (\Exception $e) {
+            return [
+                'code' => $e->getCode(),
+                'response' => $e->getMessage()
+            ];
+        }
+    }
+
+    /*
+     * Pagamento - Consultar por SolicitacaoId.
+     *
+     * @param int $solicitacaoId
+     * @return array
+     */
+    public function paymentDetailsBySolicitacaoId($solicitacaoId)
+    {
+        try {
+            $response = $this->http->get('/pix/direto/forintegration/v1/pagamentos/chave/solicitacoes/' . $solicitacaoId);
 
             return $response;
         } catch (\Exception $e) {

@@ -57,7 +57,26 @@ trait Helpers
             throw new \Exception($validator->errors()->first());
         }
     }
+    /*
+     * Valida dados para pagamento assíncrono.
+     *
+     * @param array $data
+     * @return void
+     */
+    public function validateAsyncPaymentData($data)
+    {
+        $validator = Validator::make($data, [
+            'chave.valor' => 'required|string',
+            'chave.tipo' => 'required|string:CPF,CNPJ,EMAIL,PHONE,CHAVE_ALEATORIA',
+            'valor' => 'required',
+            'pagamentoId' => 'nullable|string',
+            'validarRecebedor.documento' => 'nullable|string',
+        ]);
 
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first());
+        }
+    }
     /*
      * Valida dados para criação de cobrança dinâmica.
      *
