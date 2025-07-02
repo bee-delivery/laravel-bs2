@@ -65,16 +65,24 @@ trait Helpers
      */
     public function validateAsyncPaymentData($data)
     {
-        $validator = Validator::make($data, [
-            'chave.valor' => 'required|string',
-            'chave.tipo' => 'required|string:CPF,CNPJ,EMAIL,PHONE,CHAVE_ALEATORIA',
-            'valor' => 'required',
-            'pagamentoId' => 'nullable|string',
-            'validarRecebedor.documento' => 'nullable|string',
-        ]);
+        // Verifica se solicitacoes é um array
+        if (!isset($data['solicitacoes']) || !is_array($data['solicitacoes'])) {
+            throw new \Exception('solicitacoes must be an array');
+        }
 
-        if ($validator->fails()) {
-            throw new \Exception($validator->errors()->first());
+        // Valida cada item do array solicitacoes
+        foreach ($data['solicitacoes'] as $index => $solicitacao) {
+            $validator = Validator::make($solicitacao, [
+                'chave.valor' => 'required|string',
+                'chave.tipo' => 'required|string:CPF,CNPJ,EMAIL,PHONE,CHAVE_ALEATORIA',
+                'valor' => 'required',
+                'pagamentoId' => 'nullable|string',
+                'validarRecebedor.documento' => 'nullable|string',
+            ]);
+
+            if ($validator->fails()) {
+                throw new \Exception("Validation failed for solicitacoes[{$index}]: " . $validator->errors()->first());
+            }
         }
     }
     /*
